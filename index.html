@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Portfolio </title>
+    <link rel="icon" href="free_icon.png"> <!--to display icon in title-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        line-height: 1.6;
+    }
+
+    div {
+        margin: 20px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    #section1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        background-image: url("paper.gif"), url("avatar_icon.png");
+        background-position: center, right bottom;
+        background-repeat: repeat, no-repeat;
+        padding: 30px;
+    }
+
+    .intro {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .profile {
+        max-width: 200px;
+        width: 100%;
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+    }
+
+    nav {
+        background: #222;
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+    }
+
+    nav li {
+        padding: 15px 20px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    nav li:hover {
+        background: darkblue;
+    }
+
+    #section3 ul {
+        margin-left: 40px;
+    }
+
+    .projects {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        flex: 1;
+        min-width: 250px;
+        background: #dbe9ff;
+        padding: 20px;
+        border-radius: 15px 50px 30px 5px;
+        border: 15px solid transparent;
+        border-image: url(border.png) 30 round;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* EXP 4 - 6. ADJACENT SIBLING SELECTOR */
+
+    .itemImg {
+        width: 80px;
+        display: none;
+        margin: 10px auto;
+    }
+
+    .itemName:hover+.itemImg {
+        display: block;
+    }
+
+    #section7 {
+        width: 100%;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+    /* EXP 4 - 5. PSEUDO-CLASSES */
+
+    input:focus {
+        border: 3px solid red;
+        background-color: #e9ffe9;
+    }
+
+    input:required {
+        border: 3px solid blue;
+        background-color: lightyellow;
+    }
+
+    input[type="email"]:invalid {
+        color: red;
+    }
+
+    input[type="email"]:valid {
+        color: blue;
+    }
+
+    input[type=submit],
+    input[type=reset] {
+        background: darkblue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    input[type=submit]:hover,
+    input[type=reset]:hover {
+        background: #003366;
+    }
+
+    #section8 {
+        text-align: center;
+    }
+
+    #section8 a {
+        display: inline-block;
+        background: darkblue;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    .back {
+        text-align: center;
+    }
+
+    #top {
+        display: inline-block;
+        margin: 20px;
+        padding: 10px 20px;
+        background: darkblue;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    /* Tablet */
+    @media(max-width:992px) {
+        nav ul {
+            flex-wrap: wrap;
+        }
+
+        .projects {
+            justify-content: center;
+        }
+    }
+
+    /* Mobile */
+    @media(max-width:768px) {
+        #section1 {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        nav ul {
+            flex-direction: column;
+        }
+
+        .projects {
+            flex-direction: column;
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+    }
+
+    /* Small Mobile */
+    @media(max-width:480px) {
+        h1 {
+            font-size: 22px;
+        }
+
+        .profile {
+            max-width: 150px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+        }
+    }
+
+    #section5 {
+        background-image: url(img_flwr.gif);
+        background-size: 100px 80px;
+        background-repeat: no-repeat;
+        background-position: right bottom;
+    }
+
+    /* EXP 4 - 7. NTH-CHILD */
+    .tech-section {
+        flex-basis: 100%;
+        margin-top: 20px;
+    }
+
+    .tech-section h3 {
+        text-align: left;
+    }
+
+    .tech-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tech-table th,
+    .tech-table td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .tech-table tr:nth-child(even) {
+        background-color: #dbe9ff;
+    }
+
+    .tech-table tr:nth-child(odd) {
+        background-color: #f5f9ff;
+    }
+
+
+    /* EXPERIMENT 7 - JQUERY */
+
+    #section10 {
+        background-color: #e9f2ff;
+    }
+
+    #section10 button {
+        background-color: darkblue;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    #animateBox {
+        background-color: darkblue;
+        color: white;
+        padding: 15px;
+        width: 150px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    /* EXPERIMENT 8 - ANGULARJS */
+    .angular-section {
+        margin: 20px;
+        padding: 25px;
+        background: #eef4ff;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .12);
+    }
+
+    .angular-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+    }
+
+    .angular-card {
+        margin: 0;
+        padding: 20px;
+        background: white;
+        border: 1px solid #cbd8ee;
+        border-radius: 12px;
+        box-shadow: none;
+    }
+
+    .angular-card input,
+    .angular-card select {
+        width: 100%;
+        padding: 9px;
+        margin: 7px 0 12px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+
+    .angular-card button {
+        background: darkblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 9px 14px;
+        margin: 5px 4px 5px 0;
+        cursor: pointer;
+    }
+
+    .angular-card button:hover {
+        background: #003366;
+    }
+
+    .angular-list {
+        padding-left: 22px;
+        margin-top: 12px;
+    }
+
+    .angular-list li {
+        margin: 8px 0;
+        overflow-wrap: anywhere;
+    }
+
+    .angular-result {
+        margin-top: 12px;
+        font-weight: bold;
+        color: #123b78;
+    }
+
+    .angular-muted {
+        color: #555;
+        font-size: 14px;
+    }
+
+
+    /* EXPERIMENT 9 - ANGULARJS FORM VALIDATION AND ROUTING */
+    .exp9-section {
+        margin: 20px;
+        padding: 25px;
+        background: #eef4ff;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .12);
+    }
+
+    .registration-card {
+        max-width: 720px;
+        margin: 20px auto;
+        padding: 25px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .12);
+    }
+
+    .registration-card h2 {
+        color: darkblue;
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .registration-card label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    .registration-card input[type="text"],
+    .registration-card input[type="password"],
+    .registration-card input[type="number"],
+    .registration-card input[type="email"],
+    .registration-card select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+
+    .registration-card input.ng-invalid.ng-touched,
+    .registration-card select.ng-invalid.ng-touched {
+        border: 2px solid #d93025;
+        background: #fff8f7;
+    }
+
+    .registration-card input.ng-valid.ng-touched,
+    .registration-card select.ng-valid.ng-touched {
+        border: 2px solid #188038;
+    }
+
+    .validation-error {
+        color: #c62828;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .registration-card .gender-options {
+        margin-top: 8px;
+    }
+
+    .registration-card .gender-options label {
+        display: inline-block;
+        margin-right: 18px;
+        font-weight: normal;
+    }
+
+    .registration-card button {
+        margin-top: 18px;
+        padding: 10px 20px;
+        background: darkblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .registration-card button:disabled {
+        background: #aaa;
+        cursor: not-allowed;
+    }
+
+    .registration-success {
+        color: #188038;
+        font-weight: bold;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .route-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .route-nav a {
+        padding: 9px 18px;
+        color: white;
+        background: darkblue;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .route-nav a:hover {
+        background: #003366;
+    }
+
+    .route-view {
+        min-height: 130px;
+        padding: 25px;
+        margin: 15px 0;
+        border-radius: 10px;
+        text-align: center;
+        background: white;
+        border: 1px solid #ccd6e5;
+    }
+
+    .route-view.red-page {
+        background: #ffe2e2;
+        color: #8b0000;
+    }
+
+    .route-view.green-page {
+        background: #e2ffe7;
+        color: #075b20;
+    }
+
+    .route-view.blue-page {
+        background: #e2edff;
+        color: #082b70;
+    }
+
+
+    /* EXPERIMENT 10 - NODE.JS AND MONGODB */
+    .exp10-section {
+        margin: 20px;
+        padding: 25px;
+        background: #eef4ff;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .12);
+    }
+
+    .exp10-card {
+        max-width: 850px;
+        margin: 20px auto;
+        padding: 25px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .10);
+    }
+
+    .exp10-card h2, .exp10-card h3 {
+        color: darkblue;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .exp10-card label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    .exp10-card input[type="text"],
+    .exp10-card input[type="password"],
+    .exp10-card input[type="number"],
+    .exp10-card input[type="email"],
+    .exp10-card select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+
+    .exp10-options {
+        margin-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .exp10-options label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        font-weight: normal;
+    }
+
+    .exp10-card button {
+        margin-top: 18px;
+        padding: 10px 20px;
+        background: darkblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .exp10-card button:hover { background: #003366; }
+
+    #registrationMessage {
+        margin-top: 15px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    #registrationTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: white;
+    }
+
+    #registrationTable th, #registrationTable td {
+        border: 1px solid #aaa;
+        padding: 9px;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    #registrationTable th {
+        background: #dbe9ff;
+        color: #123b78;
+    }
+
+    .exp10-table-wrap { overflow-x: auto; }
+
+</style>
+
+<body ng-app="freelancerApp">
+    <header id="section1">
+        <div class="intro">
+            <h1 id="portfolioTitle">Freelancer Portfolio - ABHIRAMI M J</h1>
+            <h3>Aspiring Web Developer</h3>
+            <p>
+                Building clean, responsive, and user-friendly websites.
+            </p>
+        </div>
+        <br>
+        <a href="https://www.linkedin.com/in/abhirami-mj/"><img src="avatar_icon.png" alt="LinkedIn Profile"
+                class="profile"></a> <!--Clickable Image Link-->
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#section1">Home</a></li>
+            <li><a href="#section2">About</a></li>
+            <li><a href="#section3">Skills</a></li>
+            <li><a href="#section4">Projects</a></li>
+            <li><a href="#section8">Contact</a></li>
+            <li><a href="#section13">Exp 10</a></li>
+        </ul>
+    </nav>
+
+    <div id="section2">
+        <h2>About Me</h2>
+        <p>
+            I am currently pursuing <strong>B.Tech in Computer Science and Engineering</strong> and studying
+            5<sup>th</sup> semester in <strong>Karunya Institute of Technology and Sciences</strong>.
+            My goal is to become a <i>Web Developer</i>. I am a <i>freelance web developer</i> passionate about
+            designing responsive websites and continuously improving my programming, SQL, Excel, Python,
+            and web development skills through projects and online courses.
+        </p>
+    </div>
+
+    <div id="section3">
+        <h2>Skills</h2>
+        <ul> <!--Unordered Nested List-->
+            <li>Technical Skills
+                <ul>
+                    <li>HTML5</li>
+                    <li>CSS</li>
+                    <li>Python</li>
+                    <li>SQL</li>
+                    <li>Excel</li>
+
+                </ul>
+            </li>
+            <li>Soft Skills
+                <ul>
+                    <li>Communication</li>
+                    <li>Teamwork</li>
+                    <li>Problem Solving</li>
+                    <li>Time Management</li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="section4">
+        <h2>Projects</h2>
+        <div class="projects">
+            <div class="card">
+                <h3 class="itemName">Student Result System</h3>
+                <img class="itemImg" src="student_result.png" alt="Student Result System">
+                <p>Calculates student grades</p>
+                <h4>Python</h4>
+            </div>
+            <div class="card">
+                <h3>Personal Portfolio</h3>
+                <p>Responsive portfolio website.</p>
+                <h4>HTML5 & CSS3</h4>
+            </div>
+            <div class="card">
+                <h3>Calculator</h3>
+                <p>Simple calculator application.</p>
+                <h4>HTML</h4>
+            </div>
+            <div class="tech-table">
+                <h3>Project Technologies</h3>
+
+                <table class="tech-table">
+                    <tr>
+                        <th>Project</th>
+                        <th>Technology</th>
+                    </tr>
+
+                    <tr>
+                        <td>Student Result System</td>
+                        <td>Python</td>
+                    </tr>
+
+                    <tr>
+                        <td>Personal Portfolio</td>
+                        <td>HTML5 & CSS3</td>
+                    </tr>
+
+                    <tr>
+                        <td>Calculator</td>
+                        <td>HTML</td>
+                    </tr>
+
+                    <tr>
+                        <td>Future Project</td>
+                        <td>JavaScript</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" id="randomBtn">Suggest a Project</button>
+        <p id="randomResult"></p>
+    </div>
+
+    <div id="section5">
+        <h2>Services</h2>
+        <dl> <!--Description List-->
+            <dt><strong>Web Design</strong></dt>
+            <dd>Creating simple responsive websites.</dd>
+            <dt><strong>Data Analysis</strong></dt>
+            <dd>Analyzing datasets using Excel and Python.</dd>
+            <dt><strong>Content Writing</strong></dt>
+            <dd>Creating technical documentation.</dd>
+        </dl>
+    </div>
+
+    <div id="section6">
+        <h2>Learning Journey</h2>
+        <ol> <!--Ordered Nested List-->
+            <li>Programming
+                <ul type="circle">
+                    <li>Python</li>
+                    <li>Java</li>
+                </ul>
+            </li>
+            <li>Data Analytics
+                <ul>
+                    <li>Excel</li>
+                    <li>SQL</li>
+                </ul>
+            </li>
+            <li>Web Development
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div id="section7">
+        <h2>Hire Me</h2>
+        <form>
+            <label for="name"><b>Full Name</b></label> <!--Text-->
+            <input type="text" id="name" placeholder="Enter your full name" required>
+            <p id="nameMessage"></p>
+            <br>
+
+            <label for="email"><b>Email</b></label> <!--Email-->
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <p id="emailMessage"></p>
+            <p id="emailTypingMessage"></p>
+            <br>
+
+            <label for="pass"><b>Password</b></label> <!--Password-->
+            <input type="password" id="pass" placeholder="Enter your password" required>
+            <br>
+
+            <label for="age"><b>Age</b></label> <!--Number-->
+            <input type="number" id="age" placeholder="Enter your age" min="18" max="60" required>
+            <br>
+
+            <label for="budget"><b>Project Budget</b></label> <!--Number-->
+            <input type="number" id="budget" min="10000" placeholder="Enter your budget (Min ₹10000)" size="30"
+                required>
+            <p id="budgetFocusMessage"></p>
+            <p id="budgetMessage"></p>
+            <button type="button" id="analyzeBtn">Analyze Budget</button>
+            <p id="budgetResult"></p>
+            <br>
+
+            <label for="start"><b>Project Start Date</b></label> <!--Date-->
+            <input type="date" id="start" required>
+            <br>
+
+            <label for="gender"><b>Gender</b></label> <!--Radio Buttons-->
+            <input type="radio" name="gender" value="Male" required> Male
+            <input type="radio" name="gender" value="Female"> Female
+            <input type="radio" name="gender" value="Other"> Other
+            <p id="genderResult"></p>
+            <br>
+
+            <label><b>Services Required</b></label> <!--checkbox-->
+            <input type="checkbox" name="service" value="Web Design"> Web Design
+            <input type="checkbox" name="service" value="Web Development"> Web Development
+            <input type="checkbox" name="service" value="UI/UX Design"> UI/UX Design
+            <input type="checkbox" name="service" value="Search Engine Optimization"> Search Engine Optimization
+            <button type="button" id="serviceBtn">Count Services</button>
+            <p id="serviceResult"></p>
+            <br>
+
+            <label for="project"><b>Project Type</b></label> <!--DropBox-->
+            <select name="project" id="project" required>
+                <option value="">--Select Project Type--</option>
+                <option value="Portfolio Website">Portfolio Website</option>
+                <option value="Business Website">Business Website</option>
+                <option value="E-commerce Website">E-commerce Website</option>
+                <option value="Blog Website">Blog Website</option>
+                <option value="Other">Other</option>
+            </select>
+            <p id="projectMessage"></p>
+            <br>
+
+            <label for="description"><b>Project Description</b></label> <!--TextArea-->
+            <textarea id="description" rows="5" cols="30" placeholder="Describe your project...." required></textarea>
+            <p id="focusMessage"></p>
+            <button type="button" id="descriptionBtn">Analyze Description</button>
+            <p id="descriptionResult"></p>
+            <p id="wordCountResult"></p>
+            <p id="characterResult"></p>
+            <br>
+
+            <label for="color"><b>Preferred Theme Color</b></label> <!--Color Picker-->
+            <input type="color" id="color">
+            <p id="colorResult"></p>
+            <br>
+
+            <label for="file"><b>Upload Project Requirements</b></label> <!--File Upload-->
+            <input type="file" id="file" required>
+            <br><br>
+
+            <label for="urgency"><b>Project Urgency</b></label> <!--Range Slider-->
+            Low
+            <input type="range" id="urgency" min="1" max="10" value="5">
+            High
+            <p id="urgencyResult"></p>
+            <br><br>
+
+            <input type="submit" value="Submit"> <!--Submit Button-->
+            <input type="reset" value="Reset"> <!--Reset Button-->
+            <p id="formResult"></p>
+            <p id="resetMessage"></p>
+            <br>
+
+            <button type="button" id="countBtn">Show Form Statistics</button>
+            <p id="countResult"></p>
+
+            <button type="button" id="classBtn">Count Portfolio Cards</button>
+            <p id="classResult"></p>
+        </form>
+    </div>
+
+    <div id="section8">
+        <h2>Contact Me</h2> <!--Internal Link-->
+        <a href="mailto:abhiramim@karunya.edu.in">Email Me</a> <!--Email Link-->
+        <br><br>
+        <a href="tel:+918590412800">Call Me</a> <!--Phone Link-->
+        <br><br>
+        <a href="https://github.com/mj-abhirami">GitHub</a> <!--GitHub Link-->
+        <br><br>
+    </div>
+
+    <!-- EXPERIMENT 6 -->
+    <div id="section9">
+
+        <h2>JavaScript Features</h2>
+
+        <!-- Digital Clock -->
+        <h3>Current Time</h3>
+        <p id="time">00:00:00</p>
+
+        <br>
+
+        <!-- Dynamic Background -->
+        <h3>Portfolio Theme</h3>
+        <p>The background colour changes automatically.</p>
+
+        <br>
+
+        <!-- Mouse Events -->
+        <h3>My Portfolio Message</h3>
+        <p id="para" onmouseover="incSize()" onmouseout="decSize()">
+            Move your mouse over this message.
+        </p>
+
+        <br>
+
+        <!-- Move Image -->
+        <h3>Portfolio Image Animation</h3>
+        <div style="position: relative; height: 100px;">
+            <img id="imgObj" src="avatar_icon.png" width="80" style="position: absolute; left: 0px;">
+        </div>
+        <button type="button" onclick="moveRight()">Move Image</button>
+        <button type="button" onclick="stop()">Stop Image</button>
+
+        <br><br>
+
+        <!-- Class and Object -->
+        <h3>Freelancer Object</h3>
+        <button type="button" id="freelancerBtn">
+            Show Freelancer Details
+        </button>
+        <p id="freelancerResult"></p>
+
+        <br>
+
+        <!-- Array of Objects -->
+        <h3>My Projects</h3>
+        <button type="button" id="projectBtn">
+            Show Project Details
+        </button>
+        <p id="projectResult"></p>
+
+    </div>
+
+    <!-- EXPERIMENT 7 - JQUERY -->
+
+    <div id="section10">
+
+        <h2>jQuery Features</h2>
+
+        <!-- Hide and Show -->
+        <h3>Freelancer Introduction</h3>
+        <p id="jqueryText">
+            Welcome to my Freelancer Portfolio!
+            I create responsive and user-friendly websites.
+        </p>
+
+        <button type="button" id="hideBtn">Hide Introduction</button>
+        <button type="button" id="showBtn">Show Introduction</button>
+
+        <br><br>
+
+        <!-- Fade Effect -->
+        <h3>My Projects</h3>
+        <button type="button" id="fadeBtn">Fade Projects</button>
+
+        <br><br>
+
+        <!-- Budget Calculator -->
+        <h3>Freelancer Budget Calculator</h3>
+
+        <label>Enter Your Project Budget (₹)</label>
+        <input type="number" id="projectBudget" placeholder="Enter amount">
+
+        <button type="button" id="calculateBtn">
+            Evaluate My Budget
+        </button>
+
+        <p id="budgetOutput"></p>
+
+        <br>
+
+        <!-- Animation -->
+        <h3>Freelancer Animation</h3>
+
+        <p id="animateBox">My Portfolio</p>
+
+        <button type="button" id="animateBtn">
+            Animate
+        </button>
+
+    </div>
+
+
+    <!-- EXPERIMENT 8 - ANGULARJS DIRECTIVES -->
+    <section class="angular-section" id="section11">
+        <h2>AngularJS Freelancer Workspace</h2>
+        <p>Interactive tools built using AngularJS directives.</p>
+
+        <div class="angular-grid">
+
+            <!-- 1. COMMENT BOX USING ng-model, ng-click AND ng-repeat -->
+            <div class="angular-card" ng-controller="FeedbackController">
+                <h3>1. Client Feedback</h3>
+                <p class="angular-muted">Post a comment about my freelance work.</p>
+
+                <input type="text"
+                       ng-model="newComment"
+                       placeholder="Enter your comment">
+
+                <button type="button" ng-click="addComment()">Post Comment</button>
+
+                <p class="angular-result" ng-if="message">{{ message }}</p>
+
+                <h4>Comments</h4>
+                <p ng-if="comments.length === 0" class="angular-muted">
+                    No comments yet. Be the first to comment!
+                </p>
+
+                <ul class="angular-list">
+                    <li ng-repeat="comment in comments track by $index">
+                        {{ comment }}
+                        <button type="button" ng-click="removeComment($index)">
+                            Remove
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 2. SIMPLE CALCULATOR USING ng-model AND ng-click -->
+            <div class="angular-card" ng-controller="CalculatorController">
+                <h3>2. Project Calculator</h3>
+                <p class="angular-muted">Perform calculations for project estimates.</p>
+
+                <label for="numberA">First value</label>
+                <input id="numberA" type="number" ng-model="a" placeholder="Enter first value">
+
+                <label for="operator">Operation</label>
+                <select id="operator" ng-model="operator">
+                    <option value="+">Addition (+)</option>
+                    <option value="-">Subtraction (-)</option>
+                    <option value="*">Multiplication (*)</option>
+                    <option value="/">Division (/)</option>
+                </select>
+
+                <label for="numberB">Second value</label>
+                <input id="numberB" type="number" ng-model="b" placeholder="Enter second value">
+
+                <button type="button" ng-click="calculate()">Calculate</button>
+                <button type="button" ng-click="clear()">Clear</button>
+
+                <p class="angular-result" ng-if="result !== null">
+                    Result: {{ result }}
+                </p>
+                <p class="angular-result" ng-if="error">{{ error }}</p>
+            </div>
+
+            <!-- 3. TODO LIST USING ng-model, ng-click AND ng-repeat -->
+            <div class="angular-card" ng-controller="TaskController">
+                <h3>3. Freelancer Task List</h3>
+                <p class="angular-muted">Add tasks that need to be completed.</p>
+
+                <input type="text"
+                       ng-model="taskTitle"
+                       placeholder="Enter a task">
+
+                <button type="button" ng-click="addTask()">Add Task</button>
+
+                <p class="angular-muted" ng-if="tasks.length === 0">
+                    No tasks added yet.
+                </p>
+
+                <ul class="angular-list">
+                    <li ng-repeat="task in tasks track by $index">
+                        {{ task }}
+                        <button type="button" ng-click="removeTask($index)">
+                            Delete
+                        </button>
+                    </li>
+                </ul>
+                <p class="angular-result">Total tasks: {{ tasks.length }}</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- EXPERIMENTFORM VALIDATION AND ROUTING USING ANGULARJS -->
+    <section class="exp9-section" id="section12">
+        <h2>Form Validation and Routing</h2>
+        <p>AngularJS form validation and single-page navigation for the Freelancer Portfolio.</p>
+
+        <!-- USER REGISTRATION FORM -->
+        <div class="registration-card" ng-controller="RegistrationController">
+            <h2>User Registration Form</h2>
+
+            <form name="registrationForm" ng-submit="register()" novalidate>
+
+                <label for="regName">Name*</label>
+                <input type="text" id="regName" name="regName"
+                       ng-model="user.name" ng-pattern="/^[A-Za-z ]+$/"
+                       required placeholder="Enter your name">
+                <div class="validation-error"
+                     ng-show="registrationForm.regName.$touched && registrationForm.regName.$error.required">
+                    Name is required.
+                </div>
+                <div class="validation-error"
+                     ng-show="registrationForm.regName.$touched && registrationForm.regName.$error.pattern">
+                    Name should not contain numbers or special characters.
+                </div>
+
+                <label for="regPassword">Password*</label>
+                <input type="password" id="regPassword" name="regPassword"
+                       ng-model="user.password"
+                       ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/"
+                       required placeholder="Minimum 8 characters">
+                <div class="validation-error"
+                     ng-show="registrationForm.regPassword.$touched && registrationForm.regPassword.$error.required">
+                    Password is required.
+                </div>
+                <div class="validation-error"
+                     ng-show="registrationForm.regPassword.$touched && registrationForm.regPassword.$error.pattern">
+                    Password must contain uppercase, lowercase, a number and at least 8 characters.
+                </div>
+
+                <label for="regAge">Age*</label>
+                <input type="number" id="regAge" name="regAge"
+                       ng-model="user.age" min="18" max="30"
+                       required placeholder="Enter age (18–30)">
+                <div class="validation-error"
+                     ng-show="registrationForm.regAge.$touched && registrationForm.regAge.$invalid">
+                    Age must be between 18 and 30.
+                </div>
+
+                <label for="regMobile">Mobile Number*</label>
+                <input type="text" id="regMobile" name="regMobile"
+                       ng-model="user.mobile" ng-pattern="/^[0-9]{10}$/"
+                       required maxlength="10" inputmode="numeric"
+                       placeholder="Enter 10-digit mobile number">
+                <div class="validation-error"
+                     ng-show="registrationForm.regMobile.$touched && registrationForm.regMobile.$invalid">
+                    Mobile number must contain exactly 10 digits.
+                </div>
+
+                <label for="regEmail">Email*</label>
+                <input type="email" id="regEmail" name="regEmail"
+                       ng-model="user.email" required
+                       placeholder="Enter email address">
+                <div class="validation-error"
+                     ng-show="registrationForm.regEmail.$touched && registrationForm.regEmail.$invalid">
+                    Please enter a valid email address.
+                </div>
+
+                <label>Gender*</label>
+                <div class="gender-options">
+                    <label>
+                        <input type="radio" name="regGender" ng-model="user.gender"
+                               value="Male" required> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="regGender" ng-model="user.gender"
+                               value="Female" required> Female
+                    </label>
+                </div>
+                <div class="validation-error"
+                     ng-show="registrationForm.$submitted && !user.gender">
+                    Gender is required.
+                </div>
+
+                <label for="regState">State*</label>
+                <select id="regState" name="regState" ng-model="user.state" required>
+                    <option value="">--Select State--</option>
+                    <option value="Tamilnadu">Tamilnadu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Telangana">Telangana</option>
+                </select>
+                <div class="validation-error"
+                     ng-show="registrationForm.regState.$touched && registrationForm.regState.$invalid">
+                    Please select a state.
+                </div>
+
+                <button type="submit" ng-disabled="registrationForm.$invalid">
+                    Submit
+                </button>
+                <p class="registration-success" ng-if="successMessage">
+                    {{ successMessage }}
+                </p>
+            </form>
+        </div>
+
+        <!-- ANGULARJS ROUTING -->
+        <div class="registration-card">
+            <h2>Freelancer Portfolio Routing</h2>
+            <p>Click the links below to navigate between pages without reloading the application.</p>
+
+            <div class="route-nav">
+                <a href="#!/main">Main</a>
+                <a href="#!/red">Red</a>
+                <a href="#!/green">Green</a>
+                <a href="#!/blue">Blue</a>
+            </div>
+
+            <div ng-view></div>
+        </div>
+    </section>
+
+
+    <!-- EXPERIMENT 10 - HTML FORM REQUEST HANDLING USING NODE.JS AND MONGODB -->
+    <section class="exp10-section" id="section13">
+        <h2>Experiment 10 - Freelancer Registration</h2>
+        <p>Submit your details to the Node.js server and store them in MongoDB.</p>
+
+        <div class="exp10-card">
+            <h2>User Registration Form</h2>
+            <form id="portfolioRegistrationForm">
+                <label for="exp10Name">Name*</label>
+                <input type="text" id="exp10Name" name="name" required
+                       pattern="[A-Za-z ]+" title="Use letters and spaces only"
+                       placeholder="Enter your full name">
+
+                <label for="exp10Password">Password*</label>
+                <input type="password" id="exp10Password" name="password"
+                       required minlength="8" placeholder="Minimum 8 characters">
+
+                <label for="exp10Age">Age*</label>
+                <input type="number" id="exp10Age" name="age" required
+                       min="18" max="100" placeholder="Enter your age">
+
+                <label for="exp10Mobile">Mobile Number*</label>
+                <input type="text" id="exp10Mobile" name="mobile" required
+                       pattern="[0-9]{10}" maxlength="10" inputmode="numeric"
+                       title="Enter exactly 10 digits" placeholder="10-digit mobile number">
+
+                <label for="exp10Email">Email*</label>
+                <input type="email" id="exp10Email" name="email" required
+                       placeholder="Enter your email">
+
+                <label>Gender*</label>
+                <div class="exp10-options">
+                    <label><input type="radio" name="gender" value="Male" required> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+
+                <label for="exp10State">State*</label>
+                <select id="exp10State" name="state" required>
+                    <option value="">--Select State--</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Telangana">Telangana</option>
+                </select>
+
+                <label>Skills*</label>
+                <div class="exp10-options">
+                    <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
+                    <label><input type="checkbox" name="skills" value="Python"> Python</label>
+                    <label><input type="checkbox" name="skills" value="C++"> C++</label>
+                    <label><input type="checkbox" name="skills" value="Java"> Java</label>
+                </div>
+
+                <button type="submit">Submit Registration</button>
+                <button type="reset">Reset</button>
+                <p id="registrationMessage" role="status"></p>
+            </form>
+        </div>
+
+        <div class="exp10-card">
+            <h3>User Submitted Details</h3>
+            <p>Details retrieved from the MongoDB database are displayed below. Passwords are stored securely and are not displayed.</p>
+            <div class="exp10-table-wrap">
+                <table id="registrationTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th><th>Age</th><th>Mobile</th><th>Email</th>
+                            <th>Gender</th><th>State</th><th>Skills</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationTableBody">
+                        <tr><td colspan="7">Loading registrations...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <a href="#section1" id="top">Back to Top</a> <!--Bookmark Link-->
+
+    <footer>
+        <p>&copy; 2026 ABHIRAMI M J | Freelancer Portfolio</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        document.getElementById("section7").style.backgroundColor = "#f5f9ff"; // Set background color for the form section
+        document.getElementById("analyzeBtn").addEventListener("click", function () {
+            var budget = parseFloat(document.getElementById("budget").value);
+            if (budget < 25000) {
+                document.getElementById("budgetResult").innerHTML =
+                    "Budget Category: Basic Project";
+            }
+            else if (budget <= 50000) {
+                document.getElementById("budgetResult").innerHTML =
+                    "Budget Category: Standard Project";
+            }
+            else {
+                document.getElementById("budgetResult").innerHTML =
+                    "Budget Category: Premium Project";
+            }
+        })
+
+        // EXP 5 - LIVE BUDGET KEYUP EVENT
+        document.getElementById("budget").addEventListener("keyup", function () {
+            document.getElementById("budgetFocusMessage").innerHTML = "";
+            var budget = parseFloat(document.getElementById("budget").value);
+            if (budget < 25000) {
+                document.getElementById("budgetMessage").innerHTML =
+                    "Basic budget selected.";
+            }
+            else if (budget <= 50000) {
+                document.getElementById("budgetMessage").innerHTML =
+                    "Standard budget selected.";
+            }
+            else {
+                document.getElementById("budgetMessage").innerHTML =
+                    "Premium budget selected.";
+            }
+        });
+
+        // EXP 5 - ONCHANGE EVENT
+        document.getElementById("project").addEventListener("change", function () {
+            var projectType = document.getElementById("project").value;
+            if (projectType === "Portfolio Website") {
+                document.getElementById("projectMessage").innerHTML =
+                    "Great choice! A portfolio website can showcase your skills and projects.";
+            }
+            else if (projectType === "Business Website") {
+                document.getElementById("projectMessage").innerHTML =
+                    "A business website can help promote your services online.";
+            }
+            else if (projectType === "E-commerce Website") {
+                document.getElementById("projectMessage").innerHTML =
+                    "An e-commerce website can help you sell products online.";
+            }
+            else if (projectType === "Blog Website") {
+                document.getElementById("projectMessage").innerHTML =
+                    "A blog website is useful for publishing articles and content.";
+            }
+            else {
+                document.getElementById("projectMessage").innerHTML =
+                    "Let's discuss your project requirements.";
+            }
+        });
+
+        // EXP 5 - STRING AND ARRAY
+        document.getElementById("descriptionBtn").addEventListener("click", function () {
+            var text = document.getElementById("description").value;
+            var words = text.split(" ");
+            var shortest = words[0];
+            var longest = words[0];
+            for (var i = 0; i < words.length; i++) {
+                if (words[i].length < shortest.length) {
+                    shortest = words[i];
+                }
+                if (words[i].length > longest.length) {
+                    longest = words[i];
+                }
+            }
+            document.getElementById("descriptionResult").innerHTML =
+                "Shortest Word: " + shortest +
+                "<br>Longest Word: " + longest +
+                "<br>Total Words: " + words.length;
+        });
+
+        // EXP 5 - RANDOM PROJECT AND BUDGET
+        document.getElementById("randomBtn").addEventListener("click", function () {
+            var projects = [
+                "Student Result System",
+                "Personal Portfolio",
+                "Calculator"
+            ];
+            var budgets = [
+                15000,
+                30000,
+                50000,
+                75000
+            ];
+            var randomProject = Math.floor(Math.random() * projects.length);
+            var randomBudget = Math.floor(Math.random() * budgets.length);
+            document.getElementById("randomResult").innerHTML =
+                "Suggested Project: " + projects[randomProject] +
+                "<br>Suggested Budget: ₹" + budgets[randomBudget];
+        });
+
+        // EXP 5 - FORM SUBMIT EVENT
+        document.querySelector("#section7 form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var project = document.getElementById("project").value;
+            var budget = parseFloat(document.getElementById("budget").value);
+            document.getElementById("formResult").innerHTML =
+                "Thank you, " + name + "!<br>" +
+                "Your " + project + " request with a budget of ₹" + budget + " has been received.";
+        });
+
+        // EXP 5 - getElementsByTagName
+        document.getElementById("countBtn").addEventListener("click", function () {
+            var inputs = document.getElementsByTagName("input");
+            document.getElementById("countResult").innerHTML =
+                "Total input elements in this webpage: " + inputs.length;
+        });
+
+        // EXP 5 - getElementsByClassName
+        document.getElementById("classBtn").addEventListener("click", function () {
+            var cards = document.getElementsByClassName("card");
+            document.getElementById("classResult").innerHTML =
+                "Number of portfolio cards: " + cards.length;
+        });
+
+        // EXP 5 - querySelectorAll
+        document.getElementById("serviceBtn").addEventListener("click", function () {
+            var services = document.querySelectorAll('input[name="service"]');
+            document.getElementById("serviceResult").innerHTML =
+                "Number of services available: " + services.length;
+        });
+
+        // EXP 5 - ONFOCUS EVENT
+        document.getElementById("description").addEventListener("focus", function () {
+            document.getElementById("focusMessage").innerHTML =
+                "You can describe your project requirements here.";
+        });
+
+        // EXP 5 - ONKEYUP EVENT
+        document.getElementById("name").addEventListener("keyup", function () {
+            var name = document.getElementById("name").value;
+            document.getElementById("nameMessage").innerHTML =
+                "Hello, " + name;
+        });
+
+        // EXP 5 - ONCHANGE EVENT FOR COLOR
+        document.getElementById("color").addEventListener("change", function () {
+            var selectedColor = document.getElementById("color").value;
+            document.getElementById("colorResult").innerHTML =
+                "Selected Color: " + selectedColor;
+        });
+
+        // EXP 5 - ONFOCUS EVENT FOR EMAIL
+        document.getElementById("email").addEventListener("focus", function () {
+            document.getElementById("emailMessage").innerHTML =
+                "Please enter a valid email address.";
+        });
+
+        // EXP 5 - LIVE WORD COUNT
+        document.getElementById("description").addEventListener("keyup", function () {
+            var text = document.getElementById("description").value;
+            var words = text.trim().split(/\s+/);
+            if (text.trim() === "") {
+                document.getElementById("wordCountResult").innerHTML =
+                    "Words Typed: 0";
+            } else {
+                document.getElementById("wordCountResult").innerHTML =
+                    "Words Typed: " + words.length;
+            }
+        });
+
+        // EXP 5 - CHARACTER COUNT
+        document.getElementById("description").addEventListener("keyup", function () {
+            var text = document.getElementById("description").value;
+            document.getElementById("characterResult").innerHTML =
+                "Characters Typed: " + text.length;
+        });
+
+        // EXP 5 - ONCHANGE EVENT FOR RANGE
+        document.getElementById("urgency").addEventListener("change", function () {
+            var urgency = document.getElementById("urgency").value;
+            document.getElementById("urgencyResult").innerHTML =
+                "Selected Urgency Level: " + urgency;
+        });
+
+        // EXP 5 - RESET CLICK EVENT
+        document.querySelector('input[type="reset"]').addEventListener("click", function () {
+            document.getElementById("resetMessage").innerHTML =
+                "Form has been reset successfully.";
+        });
+
+        // EXP 5 - ONFOCUS EVENT FOR BUDGET
+        document.getElementById("budget").addEventListener("focus", function () {
+            document.getElementById("budgetFocusMessage").innerHTML =
+                "Enter your estimated project budget in ₹.";
+        });
+
+        // EXP 5 - ONKEYUP EVENT FOR EMAIL
+        document.getElementById("email").addEventListener("keyup", function () {
+            var email = document.getElementById("email").value;
+            document.getElementById("emailTypingMessage").innerHTML =
+                "Email entered: " + email;
+        });
+
+        // EXP 5 - MOUSEOVER AND MOUSEOUT EVENT
+        document.getElementById("portfolioTitle").addEventListener("mouseover", function () {
+            this.innerHTML = "Welcome to My Portfolio!";
+        });
+        document.getElementById("portfolioTitle").addEventListener("mouseout", function () {
+            this.innerHTML = "Freelancer Portfolio - ABHIRAMI M J";
+        });
+
+        // EXP 5 - RADIO BUTTON CHANGE EVENT
+        var genderOptions = document.querySelectorAll('input[name="gender"]');
+        for (var i = 0; i < genderOptions.length; i++) {
+            genderOptions[i].addEventListener("change", function () {
+                document.getElementById("genderResult").innerHTML =
+                    "Selected Gender: " + this.value;
+            });
+        }
+        //EXPERIMENT 6 
+        //DIGITAL CLOCK
+        function displayTime() {
+            var d = new Date();
+            var hour = d.getHours();
+            var minute = d.getMinutes();
+            var second = d.getSeconds();
+            document.getElementById("time").innerHTML =
+                hour + ":" + minute + ":" + second;
+        }
+        setInterval(displayTime, 1000);
+
+        //DYNAMIC BACKGROUND COLOUR
+        function changeBackground() {
+            var red = Math.floor(Math.random() * 255);
+            var green = Math.floor(Math.random() * 255);
+            var blue = Math.floor(Math.random() * 255);
+            var color = "rgb(" + red + "," + green + "," + blue + ")";
+            document.body.style.backgroundColor = color;
+        }
+        setInterval(changeBackground, 30000);
+
+        //MOUSE EVENTS
+        function incSize() {
+            document.getElementById("para").style.fontSize = "32px";
+        }
+        function decSize() {
+            document.getElementById("para").style.fontSize = "20px";
+        }
+
+        //MOVE AND STOP IMAGE
+        var animate;
+        var imgObj = document.getElementById("imgObj");
+        function moveRight() {
+            imgObj.style.left =
+                parseInt(imgObj.style.left) + 1 + "px";
+            animate = setTimeout(moveRight, 10);
+        }
+        function stop() {
+            clearTimeout(animate);
+            imgObj.style.left = "0px";
+        }
+
+        //CLASS AND OBJECT
+        class Freelancer {
+            constructor(name, skill) {
+                this.name = name;
+                this.skill = skill;
+            }
+            display() {
+                return this.name + " - " + this.skill;
+            }
+        }
+        var freelancer =
+            new Freelancer("ABHIRAMI M J", "Web Developer");
+        document.getElementById("freelancerBtn")
+            .addEventListener("click", function () {
+                document.getElementById("freelancerResult").innerHTML =
+                    freelancer.display();
+            });
+
+        //ARRAY OF PROJECT OBJECTS
+        var projects = [
+            {
+                name: "Student Result System",
+                technology: "Python"
+            },
+            {
+                name: "Personal Portfolio",
+                technology: "HTML & CSS"
+            },
+            {
+                name: "Calculator",
+                technology: "HTML"
+            }
+        ];
+        document.getElementById("projectBtn")
+            .addEventListener("click", function () {
+                var result = "";
+                for (var i = 0; i < projects.length; i++) {
+                    result +=
+                        projects[i].name +
+                        " - " +
+                        projects[i].technology +
+                        "<br>";
+                }
+                document.getElementById("projectResult").innerHTML =
+                    result;
+            });
+
+
+        // EXPERIMENT 7 - JQUERY
+
+        $(document).ready(function () {
+
+            // HIDE INTRODUCTION
+            $("#hideBtn").click(function () {
+                $("#jqueryText").hide();
+            });
+
+            // SHOW INTRODUCTION
+            $("#showBtn").click(function () {
+                $("#jqueryText").show();
+            });
+
+            // FADE PROJECT CARDS
+            $("#fadeBtn").click(function () {
+                $(".card").fadeToggle();
+            });
+
+            // FREELANCER BUDGET CALCULATOR
+            $("#calculateBtn").click(function () {
+
+                var amount = parseFloat($("#projectBudget").val());
+
+                if (isNaN(amount) || amount <= 0) {
+                    $("#budgetOutput").html("Please enter a valid budget.");
+                }
+                else {
+                    var rent = amount * 0.50;
+                    var accessories = amount * 0.20;
+                    var emergency = amount * 0.20;
+                    var saving = amount * 0.10;
+
+                    $("#budgetOutput").html(
+                        "Room Rent: Rs." + rent.toFixed(2) +
+                        "<br>Accessories: Rs." + accessories.toFixed(2) +
+                        "<br>Emergency: Rs." + emergency.toFixed(2) +
+                        "<br>Saving: Rs." + saving.toFixed(2)
+                    );
+                }
+            });
+
+            // ANIMATION
+            $("#animateBtn").click(function () {
+                $("#animateBox").animate({
+                    width: "300px",
+                    opacity: 0.5,
+                    marginLeft: "50px"
+                }, 1000);
+            });
+
+        });
+    </script>
+
+
+    <!-- ANGULARJS ROUTE TEMPLATES -->
+    <script type="text/ng-template" id="mainRoute.html">
+        <div class="route-view">
+            <h3>Welcome to My Freelancer Portfolio</h3>
+            <p>This is the main page. Explore my skills, services and projects.</p>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="redRoute.html">
+        <div class="route-view red-page">
+            <h3>Red Page</h3>
+            <p>This is the red page of my Freelancer Portfolio.</p>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="greenRoute.html">
+        <div class="route-view green-page">
+            <h3>Green Page</h3>
+            <p>This is the green page of my Freelancer Portfolio.</p>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="blueRoute.html">
+        <div class="route-view blue-page">
+            <h3>Blue Page</h3>
+            <p>This is the blue page of my Freelancer Portfolio.</p>
+        </div>
+    </script>
+
+    <script>
+        // Create the AngularJS application.
+        var freelancerApp = angular.module("freelancerApp", ["ngRoute"]);
+
+        // Controller for the client feedback comment box.
+        freelancerApp.controller("FeedbackController", function ($scope) {
+            $scope.comments = [];
+            $scope.newComment = "";
+            $scope.message = "";
+
+            $scope.addComment = function () {
+                if ($scope.newComment && $scope.newComment.trim() !== "") {
+                    $scope.comments.push($scope.newComment.trim());
+                    $scope.newComment = "";
+                    $scope.message = "Comment posted successfully!";
+                } else {
+                    $scope.message = "Please enter a comment.";
+                }
+            };
+
+            $scope.removeComment = function (index) {
+                $scope.comments.splice(index, 1);
+                $scope.message = "Comment removed.";
+            };
+        });
+
+        // Controller for the simple calculator.
+        freelancerApp.controller("CalculatorController", function ($scope) {
+            $scope.a = null;
+            $scope.b = null;
+            $scope.operator = "+";
+            $scope.result = null;
+            $scope.error = "";
+
+            $scope.calculate = function () {
+                $scope.error = "";
+
+                if ($scope.a === null || $scope.a === "" ||
+                    $scope.b === null || $scope.b === "" ||
+                    isNaN(Number($scope.a)) || isNaN(Number($scope.b))) {
+                    $scope.result = null;
+                    $scope.error = "Please enter both numbers.";
+                    return;
+                }
+
+                var first = Number($scope.a);
+                var second = Number($scope.b);
+
+                if ($scope.operator === "+") {
+                    $scope.result = first + second;
+                } else if ($scope.operator === "-") {
+                    $scope.result = first - second;
+                } else if ($scope.operator === "*") {
+                    $scope.result = first * second;
+                } else if ($scope.operator === "/") {
+                    if (second === 0) {
+                        $scope.result = null;
+                        $scope.error = "Cannot divide by zero.";
+                        return;
+                    }
+                    $scope.result = first / second;
+                }
+            };
+
+            $scope.clear = function () {
+                $scope.a = null;
+                $scope.b = null;
+                $scope.operator = "+";
+                $scope.result = null;
+                $scope.error = "";
+            };
+        });
+
+        // Controller for the freelancer task list.
+        freelancerApp.controller("TaskController", function ($scope) {
+            $scope.tasks = [];
+            $scope.taskTitle = "";
+
+            $scope.addTask = function () {
+                if ($scope.taskTitle && $scope.taskTitle.trim() !== "") {
+                    $scope.tasks.push($scope.taskTitle.trim());
+                    $scope.taskTitle = "";
+                }
+            };
+
+            $scope.removeTask = function (index) {
+                $scope.tasks.splice(index, 1);
+            };
+        });
+
+
+        // EXPERIMENT 9 - ANGULARJS ROUTING
+        freelancerApp.config(function ($routeProvider) {
+            $routeProvider
+                .when("/main", {
+                    templateUrl: "mainRoute.html"
+                })
+                .when("/red", {
+                    templateUrl: "redRoute.html"
+                })
+                .when("/green", {
+                    templateUrl: "greenRoute.html"
+                })
+                .when("/blue", {
+                    templateUrl: "blueRoute.html"
+                })
+                .otherwise({
+                    redirectTo: "/main"
+                });
+        });
+
+        // EXPERIMENT 9 - USER REGISTRATION FORM VALIDATION
+        freelancerApp.controller("RegistrationController", function ($scope) {
+            $scope.user = {};
+            $scope.successMessage = "";
+
+            $scope.register = function () {
+                if ($scope.registrationForm.$valid && $scope.user.gender && $scope.user.state) {
+                    $scope.successMessage =
+                        "Registration successful! Welcome, " + $scope.user.name + ".";
+                }
+            };
+        });
+
+    </script>
+
+
+    <script>
+        // EXPERIMENT 10 - SEND FORM DATA TO NODE.JS AND DISPLAY MONGODB RECORDS
+        const portfolioRegistrationForm = document.getElementById("portfolioRegistrationForm");
+        const registrationMessage = document.getElementById("registrationMessage");
+        const registrationTableBody = document.getElementById("registrationTableBody");
+
+        function escapeTableText(value) {
+            return String(value ?? "").replace(/[&<>"']/g, function (character) {
+                return {
+                    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+                    '"': "&quot;", "'": "&#39;"
+                }[character];
+            });
+        }
+
+        async function loadPortfolioRegistrations() {
+            try {
+                const response = await fetch("/api/registrations");
+                const result = await response.json();
+
+                if (!response.ok) throw new Error(result.message || "Could not load registrations.");
+
+                if (!result.length) {
+                    registrationTableBody.innerHTML =
+                        '<tr><td colspan="7">No registrations found.</td></tr>';
+                    return;
+                }
+
+                registrationTableBody.innerHTML = result.map(function (user) {
+                    return `<tr>
+                        <td>${escapeTableText(user.name)}</td>
+                        <td>${escapeTableText(user.age)}</td>
+                        <td>${escapeTableText(user.mobile)}</td>
+                        <td>${escapeTableText(user.email)}</td>
+                        <td>${escapeTableText(user.gender)}</td>
+                        <td>${escapeTableText(user.state)}</td>
+                        <td>${escapeTableText((user.skills || []).join(", "))}</td>
+                    </tr>`;
+                }).join("");
+            } catch (error) {
+                registrationTableBody.innerHTML =
+                    '<tr><td colspan="7">Unable to load data. Start the Node.js server and MongoDB.</td></tr>';
+            }
+        }
+
+        portfolioRegistrationForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const selectedSkills = Array.from(
+                portfolioRegistrationForm.querySelectorAll('input[name="skills"]:checked')
+            ).map(function (item) { return item.value; });
+
+            if (selectedSkills.length === 0) {
+                registrationMessage.style.color = "#c62828";
+                registrationMessage.textContent = "Please select at least one skill.";
+                return;
+            }
+
+            const formData = new FormData(portfolioRegistrationForm);
+            const userData = {
+                name: formData.get("name"),
+                password: formData.get("password"),
+                age: Number(formData.get("age")),
+                mobile: formData.get("mobile"),
+                email: formData.get("email"),
+                gender: formData.get("gender"),
+                state: formData.get("state"),
+                skills: selectedSkills
+            };
+
+            try {
+                registrationMessage.style.color = "#123b78";
+                registrationMessage.textContent = "Submitting registration...";
+
+                const response = await fetch("/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData)
+                });
+
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || "Registration failed.");
+
+                registrationMessage.style.color = "#188038";
+                registrationMessage.textContent = result.message;
+                portfolioRegistrationForm.reset();
+                await loadPortfolioRegistrations();
+            } catch (error) {
+                registrationMessage.style.color = "#c62828";
+                registrationMessage.textContent =
+                    error.message || "Unable to connect to the server.";
+            }
+        });
+
+        loadPortfolioRegistrations();
+    </script>
+
+</body>
+
+</html>
